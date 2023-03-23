@@ -4,7 +4,8 @@
 
 class Choinka{
 
-
+friend class Forest;
+//friend ma wiekszy dostep niz klasy dziedziczone
 
 private:
     int height;
