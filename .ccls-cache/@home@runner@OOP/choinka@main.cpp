@@ -4,7 +4,7 @@
 int main() {
   
   
-Choinka choinka;
+Choinka choinka ;
 choinka.setHeight(5);
 choinka.setSymbol('^');
   

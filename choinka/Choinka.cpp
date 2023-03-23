@@ -10,7 +10,7 @@ private:
     char symbol;
 
 
-
+public:
 Choinka(){
   draw();
 }
