@@ -13,13 +13,36 @@ private:
 
 
 
+
 public:
 Choinka(){
+  
+  
   draw();
+  
 }
 
 public:
 void draw(){
+
+  /*
+  int **myArray = new int*[rows];
+
+
+for (int i = 0; i < rows; i++) {
+    myArray[i] = new int[cols];
+}
+
+
+for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+        myArray[i][j] = i * j;
+    }
+}
+*/
+
+  
+  
   
   int amoutOfSpaces = 0;
   int amoutOfStars = 0;
@@ -32,7 +55,15 @@ void draw(){
 drawSegment( amoutOfStars,  amoutOfSpaces);
     
   }
+
+
+/*
+  for (int i = 0; i < rows; i++) {
+    delete[] myArray[i];
 }
+delete[] myArray;  */
+}
+
 
 public:
 void drawSegment(int amoutOfStars, int amoutOfSpaces){
@@ -53,6 +84,11 @@ void drawSegment(int amoutOfStars, int amoutOfSpaces){
  
   std::cout<<"\n";
 }
+
+
+
+
+
 
 
 public:
