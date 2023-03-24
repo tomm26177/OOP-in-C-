@@ -74,7 +74,7 @@ void drawSegment(int amoutOfStars, int amoutOfSpaces){
 
   
   for(int i=0;i<amoutOfStars;i++){
-   // std::cout << "\031[1;31 red text\033[0m\n";
+    std::cout << "\031[1;31 red text\033[0m\n";
     std::cout << symbol;
   }
 
