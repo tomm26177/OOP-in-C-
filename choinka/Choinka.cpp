@@ -45,15 +45,7 @@ for (int i = 0; i < rows; i++) {
   
   
   
-  int amoutOfSpaces = 0;
-  int amoutOfStars = 0;
-  
 
-  for(int i=1; i<height*2;i=i+2){
-
-    amoutOfStars=i;
-    amoutOfSpaces=height*2-i;
-drawSegment( amoutOfStars,  amoutOfSpaces);
     
   }
 
@@ -74,7 +66,7 @@ void drawSegment(int amoutOfStars, int amoutOfSpaces){
 
   
   for(int i=0;i<amoutOfStars;i++){
-    std::cout << "\031[1;31 red text\033[0m\n";
+    //std::cout << "\031[1;31 red text\033[0m\n";
     std::cout << symbol;
   }
 
