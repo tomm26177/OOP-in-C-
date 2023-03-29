@@ -12,6 +12,8 @@ private:
     int width;
     string color;
     string symbol;
+   int x;
+    int y;
 
 public:
     Tree(int ThisHeight, int ThisWidth, string ThisColor, string ThisSymbol) {
@@ -98,6 +100,13 @@ public:
     void setSymbol(string newSymbol) {
         symbol = newSymbol;
     }
+   int getX(){
+    return x ;
+   }
+    int getY(){
+    return y ;
+   }
+
 
  
 };

@@ -1,87 +1,86 @@
-
-
-#ifndef FOREST_H
-#define FOREST_H
-
 #include <vector>
 #include "Tree.cpp"
+#include <cstring>
 
 class Forest {
 private:
-std::vector<Tree*> trees;
-char** grid;
-int width, height;
+    std::vector<Tree*> trees;
+    char** forestMatrix;
+    int forestWidth, forestHeight;
 
 public:
-Forest(int w, int h) : width(w), height(h) {
-// alokacja pamięci dla siatki lasu
-grid = new char*[height];
-for (int i = 0; i < height; i++) {
-grid[i] = new char[width];
-for (int j = 0; j < width; j++) {
-grid[i][j] = ' ';
-}
-}
-}
+    Forest(int width, int height);
+    ~Forest();
+
+    void AddTree(Tree* t, int x, int y);
+    void PrintForest();
+};
 
 
 
-void AddTree(Tree* t, int x, int y) {
-    // dodanie drzewa do wektora
-    trees.push_back(t);
 
-    // przepisanie drzewa do siatki lasu
-    for (int i = 0; i < t->getHeight(); i++) {
-        for (int j = 0; j < t->getWidth(); j++) {
-            if (t->getSymbol(i, j) != ' ') {
-                int gridX = x + j;
-                int gridY = y + i;
-                if (gridX >= 0 && gridX < width && gridY >= 0 && gridY < height) {
-                    grid[gridY][gridX] = '0' + trees.size(); // zapisanie numeru drzewa jako znak
-                }
-            }
-        }
+Forest::Forest(int width, int height) {
+    forestWidth = width;
+    forestHeight = height;
+
+    // allocate memory for the forest matrix
+    forestMatrix = new char*[forestHeight];
+    for (int i = 0; i < forestHeight; i++) {
+        forestMatrix[i] = new char[forestWidth];
+        std::memset(forestMatrix[i], ' ', forestWidth * sizeof(char));
     }
 }
 
-void Draw() {
-    // wyświetlenie siatki lasu
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            char c = grid[i][j];
-            if (c == ' ') {
-                std::cout << ' ';
-            } else {
-                int treeIndex = c - '0' - 1;
-                if (treeIndex >= 0 && treeIndex < trees.size()) {
-                    Tree* t = trees[treeIndex];
-                    std::string color = t->getColor();
-                    std::string symbol = t->getSymbol();
-                    if (!color.empty()) {
-                        std::cout << "\033[" << color << "m";
-                    }
-                    std::cout << symbol;
-                    if (!color.empty()) {
-                        std::cout << "\033[0m";
-                    }
-                }
-            }
-        }
-        std::cout << '\n';
+Forest::~Forest() {
+    // free the memory for the forest matrix
+    for (int i = 0; i < forestHeight; i++) {
+        delete[] forestMatrix[i];
     }
-}
+    delete[] forestMatrix;
 
-~Forest() {
-    // zwolnienie pamięci dla siatki lasu
-    for (int i = 0; i < height; i++) {
-        delete[] grid[i];
-    }
-    delete[] grid;
-
-    // usunięcie drzew z wektora i zwolnienie pamięci
-    for (int i = 0; i < trees.size(); i++) {
-        delete trees[i];
+    // delete all the trees in the vector
+    for (auto t : trees) {
+        delete t;
     }
     trees.clear();
 }
-};
+
+void Forest::AddTree(Tree* t, int x, int y) {
+    // add the tree to the vector
+    trees.push_back(t);
+
+    // update the forest matrix with the tree symbol and color
+    for (int i = 0; i < t->getHeight(); i++) {
+        for (int j = 0; j < t->getWidth(); j++) {
+            int posX = x + j;
+            int posY = y + i;
+            if (posX >= 0 && posX < forestWidth && posY >= 0 && posY < forestHeight) {
+                forestMatrix[posY][posX] = t->getSymbol()[0];
+            }
+        }
+    }
+}
+
+void Forest::PrintForest() {
+    // print the forest matrix with the trees' symbols and colors
+    for (int i = 0; i < forestHeight; i++) {
+        for (int j = 0; j < forestWidth; j++) {
+            bool printed = false;
+            for (auto t : trees) {
+                int posX = j - t->getX();
+                int posY = i - t->getY();
+                if (posX >= 0 && posX < t->getWidth() && posY >= 0 && posY < t->getHeight()) {
+                    std::cout << "\033[" << t->getColor() << "m" << t->getSymbol()[0] << "\033[0m";
+                    printed = true;
+                    break;
+                }
+            }
+            if (!printed) {
+                std::cout << forestMatrix[i][j];
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
+
