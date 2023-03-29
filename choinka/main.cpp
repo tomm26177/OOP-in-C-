@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Choinka.cpp"
+#include "Tree.cpp"
 
 int main() {
   
   
-Choinka choinka(10,11,"30","^");
+Tree tree(10,11,"33","^");
   
 
   

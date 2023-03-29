@@ -2,10 +2,10 @@
 #include <string>
 using namespace std;
 
-class Choinka{
+class Tree {
 
-friend class Forest;
-//friend ma wiekszy dostep niz klasy dziedziczone
+    friend class Forest;
+    //friend ma wiekszy dostep niz klasy dziedziczone
 
 private:
     int height;
@@ -14,30 +14,17 @@ private:
     string symbol;
 
 public:
-    Choinka(int ThisHeight, int ThisWidth, string ThisColor, string ThisSymbol){
+    Tree(int ThisHeight, int ThisWidth, string ThisColor, string ThisSymbol) {
         height = ThisHeight;
         width = ThisWidth;
         color = ThisColor;
         symbol = ThisSymbol;
+        draw();
     }
 
-    void setHeight(int ThisHeight){
-        height = ThisHeight;
-    }
+public:
+    void draw() {
 
-    void setWidth(int ThisWidth){
-        width = ThisWidth;
-    }
-
-    void setColor(string ThisColor){
-        color = ThisColor;
-    }
-
-    void setSymbol(string ThisSymbol){
-        symbol = ThisSymbol;
-    }
-
-    void draw(){
         // alokacja pamięci na trójkąt
         char** tree = new char*[height];
         for (int i = 0; i < height; i++) {
@@ -69,7 +56,8 @@ public:
             for (int j = 0; j < 2 * width; j++) {
                 if (tree[i][j] == symbol[0]) {
                     cout << "\033[" << color << "m" << tree[i][j] << "\033[0m";
-                } else {
+                }
+                else {
                     cout << tree[i][j];
                 }
             }
@@ -82,15 +70,36 @@ public:
         }
         delete[] tree;
     }
+public:
+    int getHeight() const {
+        return height;
+    }
+    void setHeight(int newHeight) {
+        height = newHeight;
+    }
 
-    void drawSegment(int amoutOfStars, int amoutOfSpaces){
-        for(int i=0;i<amoutOfSpaces/2;i++){
-            std::cout<<" ";
-        }
+    int getWidth() const {
+        return width;
+    }
+    void setWidth(int newWidth) {
+        width = newWidth;
+    }
 
-        for(int i=0;i<amoutOfStars;i++){
-            std::cout << symbol;
-        }
+    string getColor() const {
+        return color;
+    }
+    void setColor(string newColor) {
+        color = newColor;
+    }
 
-        for(int i=0;i<amoutOfSpaces/2;i++){
-            std
+    string getSymbol() const {
+        return symbol;
+    }
+    void setSymbol(string newSymbol) {
+        symbol = newSymbol;
+    }
+
+ 
+};
+
+

@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-class Choinka {
+class Tree {
 
     friend class Forest;
     //friend ma wiekszy dostep niz klasy dziedziczone
@@ -14,7 +14,7 @@ private:
     string symbol;
 
 public:
-    Choinka(int ThisHeight, int ThisWidth, string ThisColor, string ThisSymbol) {
+    Tree(int ThisHeight, int ThisWidth, string ThisColor, string ThisSymbol) {
         height = ThisHeight;
         width = ThisWidth;
         color = ThisColor;
@@ -70,21 +70,36 @@ public:
         }
         delete[] tree;
     }
-
-    public:
-    void drawSegment(int amountOfStars, int amountOfSpaces) {
-        for (int i = 0; i < amountOfSpaces / 2; i++) {
-            std::cout << " ";
-        }
-
-        for (int i = 0; i < amountOfStars; i++) {
-            std::cout << symbol;
-        }
-
-        for (int i = 0; i < amountOfSpaces / 2; i++) {
-            std::cout << " ";
-        }
-
-        std::cout << "\n";
+public:
+    int getHeight() const {
+        return height;
     }
+    void setHeight(int newHeight) {
+        height = newHeight;
+    }
+
+    int getWidth() const {
+        return width;
+    }
+    void setWidth(int newWidth) {
+        width = newWidth;
+    }
+
+    string getColor() const {
+        return color;
+    }
+    void setColor(string newColor) {
+        color = newColor;
+    }
+
+    string getSymbol() const {
+        return symbol;
+    }
+    void setSymbol(string newSymbol) {
+        symbol = newSymbol;
+    }
+
+ 
 };
+
+
