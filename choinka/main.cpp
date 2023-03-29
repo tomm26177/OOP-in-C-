@@ -4,11 +4,7 @@
 int main() {
   
   
-Choinka choinka;
-choinka.setHeight(5);
-choinka.setSymbol('^');
-
-
+Choinka choinka(10,11,33,'e');
   
 
   
