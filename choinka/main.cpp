@@ -4,7 +4,7 @@
 int main() {
   
   
-Choinka choinka(10,11,33,'e');
+Choinka choinka(10,11,"30","^");
   
 
   
