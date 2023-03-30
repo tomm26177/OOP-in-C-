@@ -32,6 +32,7 @@ Tree::Tree(int h, char s, string c) {
   if (c == "red")
     color = "\033[1;31m";
   tab = new int *[height];
+  
 
   for (int j = 0; j < height; j++) {
     tab[j] = new int[2 * height - 1];
