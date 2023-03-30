@@ -1,114 +1,55 @@
-#include <iostream>
-#include <string>
+#include "Tree.hpp"
 using namespace std;
-
-class Tree {
-
-    friend class Forest;
-    //friend ma wiekszy dostep niz klasy dziedziczone
-
-private:
-    int height;
-    int width;
-    string color;
-    string symbol;
-   int x;
-    int y;
-
-public:
-    Tree(int ThisHeight, int ThisWidth, string ThisColor, string ThisSymbol) {
-        height = ThisHeight;
-        width = ThisWidth;
-        color = ThisColor;
-        symbol = ThisSymbol;
-        draw();
+void Tree::printTree() {
+  // Choinka kolorowa
+  for (int i = 0; i < height; i++) {
+    for (int j = height - i; j >= 0; j--) {
+      cout << " ";
     }
-
-public:
-    void draw() {
-
-        // alokacja pamięci na trójkąt
-        char** tree = new char*[height];
-        for (int i = 0; i < height; i++) {
-            tree[i] = new char[2 * width];
-            // wypełnienie każdego wiersza spacjami
-            for (int j = 0; j < 2 * width; j++) {
-                tree[i][j] = ' ';
-            }
-        }
-
-        // rysowanie choinki
-        int k = 0;
-        for (int i = 0; i < height; i++) {
-            for (int j = width - i; j <= width + i; j++) {
-                tree[i][j] = symbol[0];
-            }
-            k++;
-        }
-
-        // rysowanie pnia
-        for (int i = 0; i < height / 4; i++) {
-            for (int j = width - width / 4; j <= width + width / 4; j++) {
-                tree[height - i - 1][j] = symbol[0];
-            }
-        }
-
-        // zmiana koloru choinki
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < 2 * width; j++) {
-                if (tree[i][j] == symbol[0]) {
-                    cout << "\033[" << color << "m" << tree[i][j] << "\033[0m";
-                }
-                else {
-                    cout << tree[i][j];
-                }
-            }
-            cout << endl;
-        }
-
-        // zwolnienie pamięci
-        for (int i = 0; i < height; i++) {
-            delete[] tree[i];
-        }
-        delete[] tree;
+    for (int j = 0; j < 2 * i + 1; j++) {
+      cout << color << "\033[;32m*\033[0m";
     }
-public:
-    int getHeight() const {
-        return height;
-    }
-    void setHeight(int newHeight) {
-        height = newHeight;
-    }
+    cout << endl;
+  }
 
-    int getWidth() const {
-        return width;
+  // Choinka binarna
+  for (int j = 0; j < height; j++) {
+    for (int i = 0; i < 2 * height - 1; i++) {
+      cout << color << tab[j][i];
     }
-    void setWidth(int newWidth) {
-        width = newWidth;
+    cout << endl;
+  }
+}
+
+Tree::Tree(int h, char s, string c) {
+  height = h;
+  symbol = s;
+
+  if (c == "green")
+    color = "\033[1;32m";
+  if (c == "yellow")
+    color = "\033[1;33m";
+  if (c == "red")
+    color = "\033[1;31m";
+  tab = new int *[height];
+
+  for (int j = 0; j < height; j++) {
+    tab[j] = new int[2 * height - 1];
+    for (int i = 0; i < 2 * height - 1; i++) {
+      tab[j][i] = 0;
     }
+  }
 
-    string getColor() const {
-        return color;
-    }
-    void setColor(string newColor) {
-        color = newColor;
-    }
+  for (int j = 0; j < height; j++)
+    for (int i = height - j - 1; i < height + j; i++)
+      tab[j][i] = 1;
+}
 
-    string getSymbol() const {
-        return symbol;
-    }
-    void setSymbol(string newSymbol) {
-        symbol = newSymbol;
-    }
-   int getX(){
-    return x ;
-   }
-    int getY(){
-    return y ;
-   }
-
-
- 
-};
-
-
+Tree::~Tree() {
+  for (int j = 0; j < height; j++) {
+    delete tab[j];
+  }
+  delete tab;
+  counter--;
+  cout << endl << "Kasuje drzewo" << endl;
+}

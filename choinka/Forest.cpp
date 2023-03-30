@@ -1,86 +1,50 @@
-#include <vector>
-#include "Tree.cpp"
-#include <cstring>
+#include "Forest.hpp"
+using namespace std;
+void Forest::AddTree(int h, char s, string c, int y, int x) {
+  Tree *tree = new Tree(h, s, c);
+  tree->x = x;
+  tree->y = y;
 
-class Forest {
-private:
-    std::vector<Tree*> trees;
-    char** forestMatrix;
-    int forestWidth, forestHeight;
+  int j, i;
+  trees.push_back(tree);
+  for (j = 0; j < tree->height; j++) {
+    for (i = 0; i < 2 * tree->height - 1; i++)
+      tab[j + y][i + x] = tree->tab[j][i] * trees.size();
+  }
+}
 
-public:
-    Forest(int width, int height);
-    ~Forest();
+Forest::Forest(int h, int w) {
+  H = h;
+  W = w;
 
-    void AddTree(Tree* t, int x, int y);
-    void PrintForest();
-};
-
-
-
-
-Forest::Forest(int width, int height) {
-    forestWidth = width;
-    forestHeight = height;
-
-    // allocate memory for the forest matrix
-    forestMatrix = new char*[forestHeight];
-    for (int i = 0; i < forestHeight; i++) {
-        forestMatrix[i] = new char[forestWidth];
-        std::memset(forestMatrix[i], ' ', forestWidth * sizeof(char));
-    }
+  tab = new int *[H];
+  for (int i = 0; i < H; i++) {
+    tab[i] = new int[W];
+  }
 }
 
 Forest::~Forest() {
-    // free the memory for the forest matrix
-    for (int i = 0; i < forestHeight; i++) {
-        delete[] forestMatrix[i];
-    }
-    delete[] forestMatrix;
-
-    // delete all the trees in the vector
-    for (auto t : trees) {
-        delete t;
-    }
-    trees.clear();
+  for (auto t : trees) {
+    delete t;
+  }
+  for (int j = 0; j < H; j++) {
+    delete tab[j];
+  }
+  delete tab;
+  trees.clear();
 }
-
-void Forest::AddTree(Tree* t, int x, int y) {
-    // add the tree to the vector
-    trees.push_back(t);
-
-    // update the forest matrix with the tree symbol and color
-    for (int i = 0; i < t->getHeight(); i++) {
-        for (int j = 0; j < t->getWidth(); j++) {
-            int posX = x + j;
-            int posY = y + i;
-            if (posX >= 0 && posX < forestWidth && posY >= 0 && posY < forestHeight) {
-                forestMatrix[posY][posX] = t->getSymbol()[0];
-            }
-        }
-    }
-}
-
 void Forest::PrintForest() {
-    // print the forest matrix with the trees' symbols and colors
-    for (int i = 0; i < forestHeight; i++) {
-        for (int j = 0; j < forestWidth; j++) {
-            bool printed = false;
-            for (auto t : trees) {
-                int posX = j - t->getX();
-                int posY = i - t->getY();
-                if (posX >= 0 && posX < t->getWidth() && posY >= 0 && posY < t->getHeight()) {
-                    std::cout << "\033[" << t->getColor() << "m" << t->getSymbol()[0] << "\033[0m";
-                    printed = true;
-                    break;
-                }
-            }
-            if (!printed) {
-                std::cout << forestMatrix[i][j];
-            }
-        }
-        std::cout << std::endl;
+  int i, j;
+  for (int j = 0; j < H; j++) {
+    for (int i = 0; i < W; i++) {
+      int k = tab[j][i];
+      if (k) {
+        cout << trees[k - 1]->color;
+        cout << trees[k - 1]->symbol;
+      } else
+        cout << " ";
     }
+    cout << endl;
+  }
+  
 }
-
-
