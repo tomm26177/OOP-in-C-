@@ -1,7 +1,8 @@
 #include "Tree.hpp"
 using namespace std;
+
 void Tree::printTree() {
-  // Choinka kolorowa
+  
   for (int i = 0; i < height; i++) {
     for (int j = height - i; j >= 0; j--) {
       cout << " ";
@@ -12,14 +13,8 @@ void Tree::printTree() {
     cout << endl;
   }
 
-  // Choinka binarna
-  for (int j = 0; j < height; j++) {
-    for (int i = 0; i < 2 * height - 1; i++) {
-      cout << color << tab[j][i];
-    }
-    cout << endl;
-  }
 }
+
 
 Tree::Tree(int h, char s, string c) {
   height = h;
@@ -30,10 +25,16 @@ Tree::Tree(int h, char s, string c) {
   if (c == "yellow")
     color = "\033[1;33m";
   if (c == "red")
-    color = "\033[1;31m";
+    color = "\033[1;31m"; 
+  if (c == "blue")
+    color = "\033[1;34m"; 
+  if (c == "purple")
+    color = "\033[1;35m"; 
+  if (c == "cyan")
+    color = "\033[1;36m"; 
+  
   tab = new int *[height];
   
-
   for (int j = 0; j < height; j++) {
     tab[j] = new int[2 * height - 1];
     for (int i = 0; i < 2 * height - 1; i++) {
@@ -46,11 +47,13 @@ Tree::Tree(int h, char s, string c) {
       tab[j][i] = 1;
 }
 
+
+
 Tree::~Tree() {
   for (int j = 0; j < height; j++) {
     delete tab[j];
   }
   delete tab;
   counter--;
-  cout << endl << "Kasuje drzewo" << endl;
+  cout << endl << "delete tree" << endl;
 }

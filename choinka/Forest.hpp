@@ -13,7 +13,9 @@ public:
   vector<Tree *> trees;
 
   void AddTree(int h, char s, string c, int x, int y);
+  void generateRandomTrees(int w, int h,int numberOfTree);
   void PrintForest();
+
   Forest(int h, int w);
 
   ~Forest();
