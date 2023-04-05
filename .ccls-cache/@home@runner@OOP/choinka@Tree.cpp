@@ -16,6 +16,7 @@ void Tree::printTree() {
 }
 
 
+
 Tree::Tree(int h, char s, string c) {
   height = h;
   symbol = s;

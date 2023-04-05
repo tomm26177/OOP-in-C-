@@ -43,7 +43,8 @@ void Forest::PrintForest() {
       if (k) {
         cout << trees[k - 1]->color;
         cout << trees[k - 1]->symbol;
-       
+
+        
       } else
         cout << " ";
     }
