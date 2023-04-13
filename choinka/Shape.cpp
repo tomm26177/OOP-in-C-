@@ -46,6 +46,8 @@ Shape::Shape(int h, char s, string c) {
   for (int j = 0; j < height; j++)
     for (int i = height - j - 1; i < height + j; i++)
       tab[j][i] = 1;
+
+  counter++;
 }
 
 
