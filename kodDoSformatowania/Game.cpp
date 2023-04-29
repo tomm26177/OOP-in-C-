@@ -1,5 +1,6 @@
 class Game {
 public:
+    //test
     int n;
     string haslo;
     int maska[100];
