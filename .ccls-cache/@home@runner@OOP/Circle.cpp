@@ -1,5 +1,5 @@
 #include<math.h>
-class Circle{
+class circle{
 public:
 double radius;
 
