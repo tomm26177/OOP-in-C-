@@ -1,4 +1,59 @@
 # depslib dependency file v1.0
-1584209020 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\main.cpp
+1682869271 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\main.cpp
 	<iostream>
+	<string>
+	"Rectangle.hpp"
+	"Shape.hpp"
+	"Border.hpp"
+	"Forest.hpp"
+	"RightTriangle.hpp"
+	"Triangle.hpp"
+
+1682861735 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\rectangle.cpp
+	<iostream>
+	<string>
+	"Rectangle.hpp"
+
+1682849690 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\righttriangle.cpp
+	<iostream>
+	<string>
+
+1682869223 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\shape.cpp
+	<iostream>
+	"shape.hpp"
+
+1682849690 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\triangle.cpp
+	<iostream>
+	<string>
+
+1682862315 c:\users\gkami\desktop\cpp\zadanie_3_oop\rectangle.hpp
+	<iostream>
+	<string>
+
+1682862210 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\border.cpp
+
+1682866478 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\forest.cpp
+	<iostream>
+	<string>
+	"Forest.hpp"
+
+1682868269 c:\users\gkami\desktop\cpp\zadanie_3_oop\forest.hpp
+	<iostream>
+	<vector>
+	"Shape.hpp"
+
+1682869362 c:\users\gkami\desktop\cpp\zadanie_3_oop\shape.hpp
+	<iostream>
+
+1682849691 c:\users\gkami\desktop\cpp\zadanie_3_oop\border.hpp
+	<iostream>
+	<string>
+
+1682849690 c:\users\gkami\desktop\cpp\zadanie_3_oop\righttriangle.hpp
+	<iostream>
+	<string>
+
+1682849690 c:\users\gkami\desktop\cpp\zadanie_3_oop\triangle.hpp
+	<iostream>
+	<string>
 

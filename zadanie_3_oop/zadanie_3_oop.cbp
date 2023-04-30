@@ -32,7 +32,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Border.hpp" />
+		<Unit filename="Rectangle.cpp" />
+		<Unit filename="Rectangle.hpp" />
+		<Unit filename="RightTriangle.cpp" />
+		<Unit filename="RightTriangle.hpp" />
+		<Unit filename="Shape.cpp" />
+		<Unit filename="Shape.hpp" />
+		<Unit filename="Triangle.cpp" />
+		<Unit filename="Triangle.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="shape.hpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
