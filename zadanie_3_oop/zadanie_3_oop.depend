@@ -29,7 +29,9 @@
 	"shape.hpp"
 	<iostream>
 
-1682862210 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\border.cpp
+1682965111 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\border.cpp
+	"Border.hpp"
+	<iostream>
 
 1682866478 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\forest.cpp
 	<iostream>
