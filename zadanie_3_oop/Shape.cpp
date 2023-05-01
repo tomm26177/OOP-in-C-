@@ -33,3 +33,7 @@ Shape::~Shape() {
   //  cout << endl << "Kasuje Shape: zostalo " << counter << endl;
 }
 
+
+
+
+

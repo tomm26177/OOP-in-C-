@@ -18,7 +18,7 @@
 	<iostream>
 	<string>
 
-1682869223 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\shape.cpp
+1682889190 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\shape.cpp
 	<iostream>
 	"shape.hpp"
 
@@ -26,9 +26,10 @@
 	<iostream>
 	<string>
 
-1682862315 c:\users\gkami\desktop\cpp\zadanie_3_oop\rectangle.hpp
+1682938440 c:\users\gkami\desktop\cpp\zadanie_3_oop\rectangle.hpp
 	<iostream>
 	<string>
+	"Shape.hpp"
 
 1682862210 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\border.cpp
 

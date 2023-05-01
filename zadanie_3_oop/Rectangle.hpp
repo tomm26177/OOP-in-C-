@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
+#include "Shape.hpp"
 
-class Rectangle{
+class Rectangle:public Shape{
 
 private:
     int x;

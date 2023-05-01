@@ -2,6 +2,7 @@
 #include <string>
 #include "Rectangle.hpp"
 
+
 Rectangle::Rectangle(){
 x=10;
 y=10;
