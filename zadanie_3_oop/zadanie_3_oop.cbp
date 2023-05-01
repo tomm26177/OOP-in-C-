@@ -32,12 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../../../Downloads/kwadraty/ractangle.cpp" />
+		<Unit filename="../../../Downloads/kwadraty/rectangle.hpp" />
 		<Unit filename="Border.cpp" />
 		<Unit filename="Border.hpp" />
 		<Unit filename="Forest.cpp" />
 		<Unit filename="Forest.hpp" />
-		<Unit filename="Rectangle.cpp" />
-		<Unit filename="Rectangle.hpp" />
 		<Unit filename="RightTriangle.cpp" />
 		<Unit filename="RightTriangle.hpp" />
 		<Unit filename="Shape.cpp" />

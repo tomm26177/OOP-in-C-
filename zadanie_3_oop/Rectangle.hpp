@@ -1,24 +1,15 @@
+#include "shape.hpp"
 #include <iostream>
-#include <string>
-#include "Shape.hpp"
+using namespace std;
 
-class Rectangle:public Shape{
-
-private:
-    int x;
-    int y;
-
-
+class Rectangle : public Shape {
 public:
-    Rectangle();
-    ~Rectangle();
-    Rectangle(int x, int y);
-    int getX();
+    void Fill();
+    void Alloc();
+    void Print();
 
-    int getY();
-
-    void setX(int i);
-    void setY(int i);
-
+    using Shape::Shape;
+    Rectangle(int h, int w, char s, string c);
+    Rectangle(int h, char s, string c);
 
 };

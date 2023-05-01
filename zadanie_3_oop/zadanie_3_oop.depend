@@ -9,10 +9,9 @@
 	"RightTriangle.hpp"
 	"Triangle.hpp"
 
-1682861735 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\rectangle.cpp
+1682963285 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\rectangle.cpp
+	"rectangle.hpp"
 	<iostream>
-	<string>
-	"Rectangle.hpp"
 
 1682849690 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\righttriangle.cpp
 	<iostream>
@@ -26,10 +25,9 @@
 	<iostream>
 	<string>
 
-1682938440 c:\users\gkami\desktop\cpp\zadanie_3_oop\rectangle.hpp
+1682538306 c:\users\gkami\desktop\cpp\zadanie_3_oop\rectangle.hpp
+	"shape.hpp"
 	<iostream>
-	<string>
-	"Shape.hpp"
 
 1682862210 source:c:\users\gkami\desktop\cpp\zadanie_3_oop\border.cpp
 
@@ -46,15 +44,17 @@
 1682869362 c:\users\gkami\desktop\cpp\zadanie_3_oop\shape.hpp
 	<iostream>
 
-1682849691 c:\users\gkami\desktop\cpp\zadanie_3_oop\border.hpp
+1682965111 c:\users\gkami\desktop\cpp\zadanie_3_oop\border.hpp
+	<iostream>
+	<string>
+	"Rectangle.hpp"
+
+1682962268 c:\users\gkami\desktop\cpp\zadanie_3_oop\righttriangle.hpp
 	<iostream>
 	<string>
 
-1682849690 c:\users\gkami\desktop\cpp\zadanie_3_oop\righttriangle.hpp
+1682942706 c:\users\gkami\desktop\cpp\zadanie_3_oop\triangle.hpp
 	<iostream>
 	<string>
-
-1682849690 c:\users\gkami\desktop\cpp\zadanie_3_oop\triangle.hpp
-	<iostream>
-	<string>
+	"shape.hpp"
 
