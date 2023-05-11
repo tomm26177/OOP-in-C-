@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1683794848 source:i:\zad5\main.cpp
+	<iostream>
+	<string>
+	<windows.h>
+	<algorithm>
+	<iomanip>
+	<vector>
+	"Team.cpp"
+
+1683794982 source:i:\zad5\team.cpp
+	<iostream>
+	<string>
+	<windows.h>
+	<algorithm>
+	<iomanip>
+	<vector>
+	<stdlib.h>
+
+1683796438 i:\zad5\team.cpp
+	<iostream>
+	<string>
+	<windows.h>
+	<algorithm>
+	<iomanip>
+	<vector>
+	<stdlib.h>
+
