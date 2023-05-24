@@ -1,68 +1,70 @@
-//
-// Created by 48510 on 23.05.2023.
-//
-
-#include <vector>
 #include <iostream>
-#include <algorithm>
 #include <fstream>
-#include <sstream>
-#include "Student.cpp"
+#include <vector>
+#include <algorithm>
+
+class Student {
+    std::string Nazwisko;
+    std::string Imie;
+    int Nr_albumu;
+    std::string Grupa;
+    int Rok;
+
+public:
+    Student() {}
+    Student(std::string nazwisko, std::string imie, int nr_albumu, std::string grupa, int rok)
+            : Nazwisko(nazwisko), Imie(imie), Nr_albumu(nr_albumu), Grupa(grupa), Rok(rok) {}
+
+    friend std::ostream& operator<<(std::ostream& os, const Student& s);
+    friend std::istream& operator>>(std::istream& is, Student& s);
+
+    int getRok() const { return Rok; }
+};
+
+std::ostream& operator<<(std::ostream& os, const Student& s) {
+    os << s.Nazwisko << ", " << s.Imie << ", " << s.Nr_albumu << ", " << s.Grupa << ", " << s.Rok;
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, Student& s) {
+    is >> s.Nazwisko >> s.Imie >> s.Nr_albumu >> s.Grupa >> s.Rok;
+    return is;
+}
 
 int main() {
     std::vector<Student> students;
+    students.emplace_back("Tomasz","Kamisjki",1234,"114b",3);
 
-    // Dodajemy przykładowych studentów do listy
-    students.push_back({"Kowalski", "Jan", "12345", "A", 2});
-    students.push_back({"Nowak", "Anna", "67890", "B", 3});
-    students.push_back({"Smith", "John", "54321", "A", 3});
-    students.push_back({"Johnson", "Emily", "98765", "B", 2});
-
-    // Zapisujemy listę studentów do pliku
-    std::ofstream outputFile("students.txt");
-    if (outputFile.is_open()) {
-        for (const auto &student: students) {
-            outputFile << student.Nazwisko << " "
-                       << student.Imie << " "
-                       << student.NrAlbumu << " "
-                       << student.Grupa << " "
-                       << student.Rok << std::endl;
+    // Wczytywanie studentów z pliku
+    std::ifstream inFile("students.txt");
+    if(inFile.is_open()) {
+        Student temp;
+        while(inFile >> temp) {
+            students.push_back(temp);
         }
-        outputFile.close();
-    } else {
-        std::cout << "Błąd podczas otwierania pliku do zapisu." << std::endl;
+        inFile.close();
     }
 
-    // Wczytujemy listę studentów z pliku
-    std::ifstream inputFile("students.txt");
-    if (inputFile.is_open()) {
-        std::string line;
-        while (std::getline(inputFile, line)) {
-            std::istringstream iss(line);
-            Student student;
-            iss >> student.Nazwisko >> student.Imie >> student.NrAlbumu >> student.Grupa >> student.Rok;
-            students.push_back(student);
+    // Wyświetlanie wszystkich studentów
+    std::for_each(students.begin(), students.end(), [](const Student& s) {
+        std::cout << s << '\n';
+    });
+
+    // Zliczanie studentów z 3 roku
+    int count = std::count_if(students.begin(), students.end(), [](const Student& s) {
+        return s.getRok() == 3;
+    });
+
+    std::cout << "Liczba studentów na 3 roku: " << count << '\n';
+
+    // Zapisywanie studentów do pliku
+    std::ofstream outFile("students_out.txt");
+    if(outFile.is_open()) {
+        for(const auto& s : students) {
+            outFile << s << '\n';
         }
-        inputFile.close();
-    } else {
-        std::cout << "Błąd podczas otwierania pliku do odczytu." << std::endl;
+        outFile.close();
     }
 
-    // Wyświetlanie studenta na ekranie za pomocą przeciążonego operatora <<
-    std::cout << "Student 1:" << std::endl;
-    std::cout << students[0] << std::endl;
-
-    // Wyświetlanie wszystkich studentów za pomocą for_each i lambdy
-    std::cout << "Wszyscy studenci:" << std::endl;
-    std::for_each(students.begin(), students.end(), [](const Student &student) {
-        std::cout << student << std::endl;
-        }
-
-
-    // Zliczanie studentów 3 roku za pomocą count_if
-    int count = std::count_if(students.begin(), students.end(), [](const Student &student)) {
-        return student.Rok == 3;
-    }
-
-        std::cout << "Liczba studentów 3 roku: " << count << std::endl;
-    };
+    return 0;
+}
