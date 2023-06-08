@@ -11,8 +11,8 @@ public:
     virtual void attack(Player &opponent);
     Player(const std::string &name);
     std::string getName() const ;
-    std::string getPlayerBoard() const;
-    std::string getEnemyBoard() const;
+    const Board& getPlayerBoard() const;
+    const Board& getEnemyBoard() const;
     bool allShipsSunk() const;
 
 public:

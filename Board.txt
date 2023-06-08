@@ -1,0 +1,2 @@
+Player: Shot at (32, 32), Result: Miss
+Enemy: Shot at (5, 45), Result: Miss

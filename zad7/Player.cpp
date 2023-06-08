@@ -1,15 +1,10 @@
 #include "Player.h"
 #include <iostream>
-#include <iostream>
-#include <fstream>
-#include <vector>
+
 #include <string>
-#include <algorithm>
-#include <random>
-#include <ctime>
+
 #include "Board.h"
-#include "Player.h"
-#include "ComputerPlayer.h"
+
 
 Player::Player(const std::string &name) : playerName(name), playerBoard(10), enemyBoard(10)
 {
@@ -25,15 +20,17 @@ std::string Player::getName() const
     return playerName;
 }
 
-std::string Player::getPlayerBoard() const
+const Board& Player::getPlayerBoard() const
 {
     return playerBoard;
 }
 
-std::string Player::getEnemyBoard() const
+
+const Board& Player::getEnemyBoard() const
 {
     return enemyBoard;
 }
+
 
 void Player::placeShips()
 {

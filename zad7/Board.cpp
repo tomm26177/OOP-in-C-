@@ -92,8 +92,7 @@ bool Board::isAllShipsSunk() const
     return true;
 }
 
-std::ostream &operator<<(std::ostream &os, const Board &board)
-{
+std::ostream &operator<<(std::ostream &os, const Board &board) {
     for (const auto &row : board.grid)
     {
         for (const auto &cell : row)
@@ -118,5 +117,6 @@ std::ostream &operator<<(std::ostream &os, const Board &board)
         os << "\n";
     }
 
-    return os;
+     return os;
+
 }
