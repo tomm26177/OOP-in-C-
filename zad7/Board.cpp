@@ -1,75 +1,122 @@
-//
-// Created by 48510 on 08.06.2023.
-//
+#include "Board.h"
 
-#ifndef OOP_IN_C_BOARD_H
-#define OOP_IN_C_BOARD_H
-#include <iostream>
-#include <vector>
-#include <iomanip>
-#include "Cell.cpp"
+Board::Board(int size) : boardSize(size)
+{
+    grid.resize(boardSize, std::vector<CellState>(boardSize, CellState::Empty));
+}
 
-class Board {
-private:
-    std::vector<std::vector<Cell>> grid;
-public:
-    static const int BOARD_SIZE = 10;
-    static const char EMPTY = '.';
-    static const char HIT = 'X';
-    static const char MISS = 'O';
-    Board() : grid(BOARD_SIZE, std::vector<Cell>(BOARD_SIZE)) {}
+void Board::placeShip(int x, int y, int length, bool vertical)
+{
+    for (int i = 0; i < length; ++i)
+    {
+        if (vertical)
+        {
+            grid[x + i][y] = CellState::Ship;
+        }
+        else
+        {
+            grid[x][y + i] = CellState::Ship;
+        }
+    }
+}
 
-    // Metoda zwracająca stan komórki na planszy
-    char getCellState(int row, int col) const {
-        return grid[row][col].getState();
+bool Board::canPlaceShip(int x, int y, int length, bool vertical) const
+{
+    if (vertical)
+    {
+        if (x + length > boardSize)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < length; ++i)
+        {
+            if (grid[x + i][y] != CellState::Empty)
+            {
+                return false;
+            }
+        }
+    }
+    else
+    {
+        if (y + length > boardSize)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < length; ++i)
+        {
+            if (grid[x][y + i] != CellState::Empty)
+            {
+                return false;
+            }
+        }
     }
 
-    // Metoda ustawiająca stan komórki na planszy
-    void setCellState(int row, int col, char state) {
-        grid[row][col].setState(state);
+    return true;
+}
+
+bool Board::isCellEmpty(int x, int y) const
+{
+    return grid[x][y] == CellState::Empty;
+}
+
+void Board::markCellAsShip(int x, int y)
+{
+    grid[x][y] = CellState::Ship;
+}
+
+void Board::markCellAsHit(int x, int y)
+{
+    grid[x][y] = CellState::Hit;
+}
+
+void Board::markCellAsMiss(int x, int y)
+{
+    grid[x][y] = CellState::Miss;
+}
+
+bool Board::isAllShipsSunk() const
+{
+    for (const auto &row : grid)
+    {
+        for (const auto &cell : row)
+        {
+            if (cell == CellState::Ship)
+            {
+                return false;
+            }
+        }
     }
 
-    // Metoda sprawdzająca, czy dane pole jest puste
-    bool isCellEmpty(int row, int col) const {
-        return getCellState(row, col) == EMPTY;
-    }
+    return true;
+}
 
-    // Metoda sprawdzająca, czy dane pole zostało trafione
-    bool isCellHit(int row, int col) const {
-        return getCellState(row, col) == HIT;
-    }
-
-    // Metoda sprawdzająca, czy dane pole zostało chybione
-    bool isCellMiss(int row, int col) const {
-        return getCellState(row, col) == MISS;
-    }
-
-    // Metoda sprawdzająca, czy dane pole jest w granicach planszy
-    bool isCellValid(int row, int col) const {
-        return row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE;
-    }
-
-    // Przeciążenie operatora strumieniowego dla wypisywania planszy
-    friend std::ostream& operator<<(std::ostream& os, const Board& board) {
-        os << "   ";
-        for (int col = 0; col < BOARD_SIZE; col++) {
-            os << std::setw(2) << col;
+std::ostream &operator<<(std::ostream &os, const Board &board)
+{
+    for (const auto &row : board.grid)
+    {
+        for (const auto &cell : row)
+        {
+            switch (cell)
+            {
+                case CellState::Empty:
+                    os << ".";
+                    break;
+                case CellState::Ship:
+                    os << "@";
+                    break;
+                case CellState::Hit:
+                    os << "X";
+                    break;
+                case CellState::Miss:
+                    os << "O";
+                    break;
+            }
+            os << " ";
         }
         os << "\n";
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            os << std::setw(2) << row;
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                os << " " << board.getCellState(row, col);
-            }
-            os << "\n";
-        }
-        return os;
     }
 
-
-
-
-};
-
-
-#endif //OOP_IN_C_BOARD_H
+    return os;
+}

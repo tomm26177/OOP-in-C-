@@ -1,102 +1,93 @@
-//
-// Created by 48510 on 08.06.2023.
-//
-
+#include "Player.h"
+#include <iostream>
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
 #include <algorithm>
+#include <random>
 #include <ctime>
-#include <cstdlib>
-#include <iomanip>
-#include <sstream>
-#include "Board.cpp"
-class Player {
-private:
-    std::string name;
-    Board playerBoard;
-    Board enemyBoard;
-    std::vector<Ship*> ships;
-public:
-    Player(const std::string& n) : name(n) {
-        ships.push_back(new Battleship());
-        ships.push_back(new Cruiser());
-        ships.push_back(new Cruiser());
-        ships.push_back(new Destroyer());
-        ships.push_back(new PatrolBoat());
-    }
+#include "Board.h"
+#include "Player.h"
+#include "ComputerPlayer.h"
 
-    ~Player() {
-        for (Ship* ship : ships) {
-            delete ship;
-        }
-    }
+Player::Player(const std::string &name) : playerName(name), playerBoard(10), enemyBoard(10)
+{
+    ships.push_back(Ship("Carrier", 5));
+    ships.push_back(Ship("Battleship", 4));
+    ships.push_back(Ship("Cruiser", 3));
+    ships.push_back(Ship("Submarine", 3));
+    ships.push_back(Ship("Destroyer", 2));
+}
 
-    // Metoda zwracająca nazwę gracza
-    std::string getName() const {
-        return name;
-    }
+std::string Player::getName() const
+{
+    return playerName;
+}
 
-    // Metoda umieszczająca statki gracza na planszy
-    void placeShips() {
-        for (Ship* ship : ships) {
-            ship->place(playerBoard);
-        }
-    }
+std::string Player::getPlayerBoard() const
+{
+    return playerBoard;
+}
 
-    // Metoda sprawdzająca, czy wszystkie statki przeciwnika zostały zatopione
-    bool allShipsSunk() const {
-        for (const Ship* ship : ships) {
-            if (!ship->isSunk()) {
-                return false;
+std::string Player::getEnemyBoard() const
+{
+    return enemyBoard;
+}
+
+void Player::placeShips()
+{
+    for (const auto &ship : ships)
+    {
+        bool validPlacement = false;
+
+        while (!validPlacement)
+        {
+            int x, y;
+            char orientation;
+            std::cout << "Enter the coordinates and orientation (H for horizontal, V for vertical) for your " << ship.getName() << " (length: " << ship.getLength() << "): ";
+            std::cin >> x >> y >> orientation;
+
+            bool vertical = (orientation == 'V' || orientation == 'v');
+            validPlacement = playerBoard.canPlaceShip(x, y, ship.getLength(), vertical);
+
+            if (validPlacement)
+            {
+                playerBoard.placeShip(x, y, ship.getLength(), vertical);
             }
-        }
-        return true;
-    }
-
-    // Metoda atakująca przeciwnika
-    void attack(Player& enemy) {
-        std::srand(std::time(nullptr));
-        int row, col;
-        bool attacked = false;
-        while (!attacked) {
-            row = std::rand() % Board::BOARD_SIZE;
-            col = std::rand() % Board::BOARD_SIZE;
-            if (enemy.enemyBoard.isCellValid(row, col)) {
-                if (enemy.enemyBoard.isCellEmpty(row, col)) {
-                    enemy.enemyBoard.setCellState(row, col, Board::MISS);
-                    attacked = true;
-                    std::cout << name << " misses!\n";
-                }
-                else if (enemy.enemyBoard.isCellHit(row, col)) {
-                    continue;  // Already hit, try again
-                }
-                else {
-                    enemy.enemyBoard.setCellState(row, col, Board::HIT);
-                    attacked = true;
-                    std::cout << name << " hits!\n";
-                    for (Ship* ship : enemy.ships) {
-                        for (int i = 0; i < ship->getSize(); i++) {
-                            int shipRow, shipCol;
-                            shipRow = col - i;
-                            shipCol = row;
-                            if (enemy.enemyBoard.isCellValid(shipRow, shipCol) && enemy.enemyBoard.getCellState(shipRow, shipCol) != Board::HIT) {
-                                enemy.enemyBoard.setCellState(shipRow, shipCol, Board::HIT);
-                                ship->hit();
-                                break;
-                            }
-                        }
-                    }
-                }
+            else
+            {
+                std::cout << "Invalid placement. Please try again.\n";
             }
         }
     }
+}
 
-    // Przeciążenie operatora strumieniowego dla wypisywania plansz gracza
-    friend std::ostream& operator<<(std::ostream& os, const Player& player) {
-        os << "Player: " << player.name << "\n";
-        os << "Your Board:\n" << player.playerBoard << "\n";
-        os << "Enemy Board:\n" << player.enemyBoard << "\n";
-        return os;
+void Player::attack(Player &opponent)
+{
+    int x, y;
+    std::cout << "Enter the coordinates to attack: ";
+    std::cin >> x >> y;
+
+    if (opponent.playerBoard.isCellEmpty(x, y))
+    {
+        opponent.playerBoard.markCellAsMiss(x, y);
+        playerBoard.markCellAsMiss(x, y);
+        std::cout << "Miss!\n";
     }
-};
+    else if (opponent.playerBoard.grid[x][y] == CellState::Ship)
+    {
+        opponent.playerBoard.markCellAsHit(x, y);
+        playerBoard.markCellAsHit(x, y);
+        std::cout << "Hit!\n";
+    }
+    else
+    {
+        std::cout << "Invalid attack. Please try again.\n";
+    }
+}
+
+bool Player::allShipsSunk() const
+{
+    return playerBoard.isAllShipsSunk();
+}
