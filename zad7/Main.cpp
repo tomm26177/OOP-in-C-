@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
 // Klasa reprezentująca pole na planszy
 class Pole {
@@ -22,6 +23,9 @@ public:
 private:
     Stan stan;
 };
+
+
+
 
 // Klasa reprezentująca planszę
 class Plansza {
@@ -83,6 +87,40 @@ public:
         return plansza[wiersz][kolumna];
     }
 
+#include <fstream>
+
+    static void zapiszDoPliku(const Plansza& plansza, const std::string& nazwaPliku) {
+        std::ofstream plik(nazwaPliku);
+
+        if (plik.is_open()) {
+            for (const auto& wiersz : plansza.plansza) {
+                for (const auto& pole : wiersz) {
+                    switch (pole.pobierzStan()) {
+                        case Pole::Stan::Puste:
+                            plik << "- ";
+                            break;
+                        case Pole::Stan::Statek:
+                            plik << "S ";
+                            break;
+                        case Pole::Stan::Trafiony:
+                            plik << "X ";
+                            break;
+                        case Pole::Stan::Pudlo:
+                            plik << "O ";
+                            break;
+                    }
+                }
+                plik << std::endl;
+            }
+
+            plik.close();
+            std::cout << "pomysle zapisano do pliku: " << nazwaPliku << std::endl;
+        } else {
+            std::cout << "blad podczas otwierania pliku: " << nazwaPliku << std::endl;
+        }
+    }
+
+
 private:
     std::vector<std::vector<Pole>> plansza;
     int rozmiar;
@@ -97,10 +135,16 @@ public:
         rozmiescStatki(&planszaGracza);
         rozmiescStatki(&planszaPrzeciwnika);
 
-        while (!(czyGraSkonczona(&planszaGracza)&& czyGraSkonczona(&planszaPrzeciwnika))) {
+        while (!(czyGraSkonczona(&planszaGracza)|| czyGraSkonczona(&planszaPrzeciwnika))) {
             ruchGracza();
+            Plansza::zapiszDoPliku(planszaGracza,"MyBoard.txt");
             ruchPrzeciwnika();
+            Plansza::zapiszDoPliku(planszaPrzeciwnika,"EnemyBoard.txt");
+
         }
+
+
+
 
         wyswietlWynik();
     }
@@ -174,6 +218,7 @@ private:
         }
     }
 
+
     void ruchGracza() {
 
         std::cout << "plansza oponenta" << "\n";
@@ -225,11 +270,6 @@ private:
     }
 
     bool czyGraSkonczona(Plansza* p) {
-        // Sprawdzenie, czy gra się skończyła (czy wszystkie statki zostały zatopione)
-        // Można zaimplementować własną logikę zakończenia gry.
-        // W przypadku, gdy wszystkie statki zostaną trafione, można zwrócić true.
-
-        // Przykład sprawdzenia, czy wszystkie statki zostały zatopione:
         for (int i = 0; i < p->pobierzRozmiar(); ++i) {
             for (int j = 0; j < p->pobierzRozmiar(); ++j) {
                 if (p->operator()(i, j).pobierzStan() == Pole::Stan::Statek) {
