@@ -1,7 +1,7 @@
 #include "Gra.h"
 
 Gra::Gra(int rozmiarPlanszy) : planszaGracza(rozmiarPlanszy), planszaPrzeciwnika(rozmiarPlanszy) {
-    // Konstruktor
+
 }
 
 void Gra::rozpocznijGre() {
