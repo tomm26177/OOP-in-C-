@@ -6,6 +6,6 @@ OOP in C++ as part of the "Programing 2" course.
 
 "zad 5" and "zad 6" is for making objects like teams or students and developing this
 
-"zad7" is game ships. You are playing with computer and you can save board to file 
+"zad7" is game ships. You are playing with computer 
 
 
